@@ -17,32 +17,11 @@ const routes = [
 
     component: () => import('../views/Three.vue')
   },
-  // {
-  //   path: '/threeb',
-  //   name: 'Canvas',
-  //
-  //   component: () => import('../views/ThreeB.vue')
-  // },
-  {
-    path: '/uldtv',
-    name: 'uldTV',
 
-    component: () => import('../views/uldTV.vue')
-  },
   {
     path: '/pubsub',
     name: 'PubSub',
        component: () => import( '../views/PubSub.vue')
-  },
-  {
-    path: '/foo',
-    name: 'Foo',
-      component: () => import('../views/Foo.vue')
-  },
-  {
-    path: '/bar',
-    name: 'Bar',
-    component: () => import('../views/Bar.vue')
   }
 ]
 
