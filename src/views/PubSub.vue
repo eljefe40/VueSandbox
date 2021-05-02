@@ -1,6 +1,6 @@
 <template>
   <div class="about pa-6">
-    <h1>PubSub (mqtt) </h1>
+    <h1>Pub</h1>
 
     <v-textarea
         solo
@@ -29,15 +29,15 @@ export default {
   data() {
     return {
       date: '',
-      brokerURL: "ws://broker.hivemq.com:8000/mqtt",
+     brokerURL: "ws://broker.hivemq.com:8000/mqtt",
+     //  brokerURL: "ws://jeffjoslin.com:1883",
       topic: "foo",
       client: null,
-      response: "ddfd"
+      response: "this is a response"
     }
   },
   methods: {
     enterKeyHandler(e) {
-
       console.log(this.client, "enter key........", e);
       this.client.publish(this.topic, e.target.value)
       this.response=e.target.value
@@ -51,7 +51,6 @@ export default {
     initClient() {
       console.log("topic is:", topic)   // vue component
       let self = this; // "this" will shapeshift.... keep a reference to the vue component
-
       let response = this.response;
       let topic = this.topic
       let client = mqtt.connect(this.brokerURL)

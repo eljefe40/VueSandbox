@@ -80,7 +80,6 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      {title: 'Messages', icon: 'mdi-format-list-checks', to: '/'},
       {title: 'Three', icon: 'mdi-cube', to: '/three'},
       {title: 'Pub-Sub', icon: 'mdi-cloud-outline', to: '/pubsub'}
     ],
@@ -89,10 +88,7 @@ export default {
     this.$store.dispatch('getTasks')
   },
   components: {
-    // 'search': require('@/components/Tools/Search.vue').default,
-    // 'live-date-time': require('@/components/Tools/LiveDateTime.vue').default,
-    // 'field-add-message': require('@/components/Todo/FieldAddMessage.vue').default,
-    // 'snackbar': require('@/components/Shared/Snackbar.vue').default
+       'live-date-time': require('@/components/Tools/LiveDateTime.vue').default,
   }
 }
 </script>

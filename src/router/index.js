@@ -1,20 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Todo from '../views/Todo.vue'
 import goTo from 'vuetify/es5/services/goto'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Todo',
-    component: Todo
-  },
-  {
     path: '/three',
     name: 'Canvas',
-
     component: () => import('../views/Three.vue')
   },
 

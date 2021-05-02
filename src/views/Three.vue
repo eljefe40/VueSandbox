@@ -23,8 +23,8 @@ export default {
 
     // hard coded for now...
 
-    let width='600px'
-    let height='600px'
+    let width='50px'
+    let height='500px'
     let top='0px'
     let left='0px'
 
@@ -72,14 +72,15 @@ export default {
           content.appendChild(inner);
 
           // CAMERA
-          const camera = new THREE.PerspectiveCamera(50, 1, 1, 10);
-          camera.position.z = 2;
+          const camera = new THREE.PerspectiveCamera(70, 1, 1, 2000);
+          camera.position.z = 30;
+          camera.zoom = 3;
           scene.userData.camera = camera;
 
           // User Controls
           const controls = new OrbitControls(scene.userData.camera, scene.userData.element);
           controls.minDistance = 2;
-          controls.maxDistance = 5;
+          controls.maxDistance = 500;
           controls.enablePan = false;
           controls.enableZoom = true;
           scene.userData.controls = controls;
@@ -90,7 +91,8 @@ export default {
 
           const geometry = geometries[1];
           const material = new THREE.MeshStandardMaterial({
-            color: new THREE.Color().setHSL(.6, 1, 0.75),
+            //color: new THREE.Color().setHSL(.6, 1, 0.75),
+            color: new THREE.Color().set(instanceParams[i].color || 'green'),
             roughness: 0.5,
             metalness: 0,
             flatShading: true
@@ -117,23 +119,23 @@ export default {
       html_snip = document.getElementsByClassName('source')
 
       const instanceParams = [
-        {width:250,height:250,a: 1, b: 'apples', o: html_snip[0]},            // make a reference to a visible object
-        {width:250,height:250,a: 2, b: 'bananas', o: html_snip[1]},
-        {width:250,height:250,a: 3, b: 'watermellon', o: html_snip[2]},
-        {width:250,height:250,a: 4, b: 'lemons', o: html_snip[3]},
-        {width:250,height:250,a: 5, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 6, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 7, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 8, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 9, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 10, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 4, b: 'lemons', o: html_snip[3]},
-        {width:250,height:250,a: 5, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 6, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 7, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 8, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 9, b: 'persimmon', o: html_snip[5]},
-        {width:250,height:250,a: 10, b: 'persimmon', o: html_snip[5]}
+        {color:'magenta',width:900,height:900,a: 1, b: 'apples', o: html_snip[0]},            // make a reference to a visible object
+        {color:'brown',width:200,height:900,a: 2, b: 'bananas', o: html_snip[1]},
+        {color:'red',width:200,height:900,a: 3, b: 'watermellon', o: html_snip[2]},
+        {color:'purple',width:250,height:250,a: 4, b: 'lemons', o: html_snip[3]},
+        {color:'yellow',width:250,height:250,a: 5, b: 'persimmon', o: html_snip[5]},
+        {color:'darkcyan',width:250,height:250,a: 6, b: 'persimmon', o: html_snip[5]},
+        {color:'#F48F00',width:250,height:250,a: 7, b: 'persimmon', o: html_snip[5]},
+        {color:'white',width:250,height:250,a: 8, b: 'persimmon', o: html_snip[5]},
+        {color:'goldenrod',width:250,height:250,a: 9, b: 'persimmon', o: html_snip[5]},
+        {color:'blue',width:250,height:250,a: 10, b: 'persimmon', o: html_snip[5]},
+        {color:'orangered',width:250,height:250,a: 4, b: 'lemons', o: html_snip[3]},
+        {color:'violet',width:250,height:250,a: 5, b: 'persimmon', o: html_snip[5]},
+        // {color:'teal',width:250,height:250,a: 6, b: 'persimmon', o: html_snip[5]},
+        // {color:'gold',width:250,height:250,a: 7, b: 'persimmon', o: html_snip[5]},
+        // {color:'cyan',width:250,height:250,a: 8, b: 'persimmon', o: html_snip[5]},
+        // {color:'red',width:250,height:250,a: 9, b: 'persimmon', o: html_snip[5]},
+        // {color:'blue',width:250,height:250,a: 10, b: 'persimmon', o: html_snip[5]}
       ]
 
       let master={};
@@ -175,7 +177,6 @@ export default {
 
         const scene_element = scene.userData.element;
         const scene_wrapper_div = renderer.domElement
-
         const width = scene_element.offsetWidth
         const height = scene_element.offsetHeight
         const left = scene_element.offsetLeft
@@ -207,40 +208,42 @@ export default {
   justify-content: center;
   width:100%;
   height:100%;
-  background-color: darkgray;
+  background-color: #6b6a6a;
   border:1px solid black;
   box-sizing: border-box;
 }
 
 #domContent{
-  flex:1 1 100px;
+  /*flex:1;*/
+  width:100%;
+  height:100%;
   display: flex;
+  align-items:center;
+  align-content: center;
+  justify-content: center;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   position: absolute;
-  /*border:3px solid red;*/
+  border:2px solid black;
   box-sizing: border-box;
   overflow: hidden;
-  z-index: 1;
-
 
 }
 #canvasContent{
   position: absolute;
   width:100%;
   height:100%;
+  margin:10px;
   /*border:2px solid blue;*/
-
 }
+
 .inner-container {
   flex:1 1 100px;
-  width:100px;
-  height:100px;
-  border: 1px solid white;
-  margin: 5px;
-  z-index:20;
-
-
+  max-width: 100px;
+  height:inherit;
+  border: 1px solid rgba(255,255,255,.2);
+  margin: 3px;
+  z-index:2;
 }
 
 canvas{
