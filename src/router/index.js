@@ -15,6 +15,16 @@ const routes = [
     path: '/pubsub',
     name: 'PubSub',
        component: () => import( '../views/PubSub.vue')
+  },
+  {
+    path: '/pubsub2',
+    name: 'PubSub2',
+    component: () => import( '../views/PubSub2.vue')
+  },
+  {
+    path: '/particles',
+    name: 'Particles',
+    component: () => import( '../views/Particles.vue')
   }
 ]
 

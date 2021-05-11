@@ -81,7 +81,9 @@ export default {
     drawer: null,
     items: [
       {title: 'Three', icon: 'mdi-cube', to: '/three'},
-      {title: 'Pub-Sub', icon: 'mdi-cloud-outline', to: '/pubsub'}
+      {title: 'Pub-Sub', icon: 'mdi-cloud-outline', to: '/pubsub'},
+      {title: 'Pub-Sub2', icon: 'mdi-cloud-outline', to: '/pubsub2'},
+      {title: 'Particles', icon: 'mdi-cloud-outline', to: '/particles'}
     ],
   }),
   mounted() {
@@ -96,4 +98,5 @@ export default {
 <style lang="sass">
 .header-container
   max-width: none
+
 </style>

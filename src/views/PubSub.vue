@@ -1,90 +1,88 @@
 <template>
-  <div class="about pa-6">
-    <h1>Pub</h1>
-
-    <v-textarea
-        solo
-        background-color="primary"
-        name="input-7-4"
-    ></v-textarea>
+  <div id="pubby">
 
     <v-text-field v-on:keyup.enter="enterKeyHandler"
-                    placeholder="topic"
-    >{{topic}}</v-text-field>
+                  v-bind:placeholder="topic"
+    >{{ topic }}
+    </v-text-field>
     <v-text-field v-on:keyup.enter="enterKeyHandler"
-                   placeholder="message"
-    ></v-text-field>
+                  v-bind:placeholder="message"
+    >{{ message }}
+    </v-text-field>
     <v-text-field v-on:keyup.enter="enterKeyHandler"
-                   placeholder="broker"
-    ></v-text-field>
+                  v-bind:placeholder="brokerURL"
+    >{{ brokerURL }}
+    </v-text-field>
+
+    <br>
+    <br>
+    <br>
+
+    <publish></publish>
+    <sub1></sub1>
+    <sub2></sub2>
+    <sub3></sub3>
+
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import VueMqtt from 'vue-mqtt'
 
-const mqtt = require('mqtt')
-import {format} from 'date-fns'
+Vue.use(VueMqtt, 'ws://broker.hivemq.com:8000/mqtt', {clientId: 'WebClient-' + parseInt(Math.random() * 100000)})
+Vue.config.productionTip = false
+
+/* eslint-disable no-new */
+
+
+import Publish from '../components/PubSub/Publish'
+import Sub1 from '../components/PubSub/Sub1'
+import Sub2 from '../components/PubSub/Sub2'
+import Sub3 from '../components/PubSub/Sub3'
 
 export default {
+
+  name: 'pubby',
+  components: {
+    Publish, Sub1, Sub2, Sub3
+  },
   data() {
     return {
       date: '',
-     brokerURL: "ws://broker.hivemq.com:8000/mqtt",
-     //  brokerURL: "ws://jeffjoslin.com:1883",
+      brokerURL: "ws://broker.hivemq.com:8000/mqtt",
+      //  brokerURL: "ws://jeffjoslin.com:1883",
       topic: "foo",
       client: null,
+      message: "",
       response: "this is a response"
     }
   },
-  methods: {
-    enterKeyHandler(e) {
-      console.log(this.client, "enter key........", e);
-      this.client.publish(this.topic, e.target.value)
-      this.response=e.target.value
-      e.target.value = "";
-
-    },
-    getDate() {
-      this.date = format(new Date(), 'MMMM d, H:mm:ss')
-      setTimeout(this.getDate, 1000)
-    },
-    initClient() {
-      console.log("topic is:", topic)   // vue component
-      let self = this; // "this" will shapeshift.... keep a reference to the vue component
-      let response = this.response;
-      let topic = this.topic
-      let client = mqtt.connect(this.brokerURL)
-
-      console.log("topic:", topic, "  -THIS IS: ", this, self) // client
-
-      client.on('connect', function () {
-        console.log("connected")
-        this.client = client
-        console.log("THIS IS:", this, self)
-        client.subscribe(topic, function (err) {
-          if (!err) {
-            client.publish(topic, 'Hello mqtt', {qos: 0, retain: false})
-          }
-        })
-      })
-      client.on('message', function (topic, message) {
-        response = message.toString();
-        console.log("RX 0n topic ", topic, "  --> ", response)
-        self.response=response
-      })
-
-      console.log("mqttclient: ", client, topic)
-      client.publish(topic, 'yo momma', 2)
-      self.client = client;
-    }
-  },
   mounted() {
-
-    console.log("mounting pubsub...---------============")
-    this.getDate()
-    this.initClient()
+    this.$mqtt.subscribe('vueSandbox/#')
   }
 }
-
 </script>
 
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+.sub {
+  width: 31%;
+  float: left;
+  border: 1px solid #ccc;
+  margin: 20px 1%;
+  padding: 20px 0;
+}
+
+button {
+  padding: 10px 20px;
+}
+</style>

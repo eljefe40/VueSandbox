@@ -16,6 +16,8 @@
     "three-orbitcontrols": "^2.110.3",
     "underscore": "^1.9.2",
     "vue": "^2.6.11",
+    "vue-mqtt": "^2.0.3",
+    "vue-particlejs": "^1.1.0",
     "vue-router": "^3.2.0",
     "vuedraggable": "^2.24.2",
     "vuetify": "^2.2.11",
